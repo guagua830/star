@@ -59,7 +59,11 @@
 
     .text.show { opacity: 1; }
 
-    .text.move-down { opacity: 0 !important; }
+    /* 文字快速干净地消失，不与图片浮现重叠 */
+    .text.move-down {
+      opacity: 0 !important;
+      transition: opacity 0.7s ease !important;
+    }
 
     /* 双击出现的图片介绍 */
     .caption {
@@ -100,11 +104,16 @@
       document.getElementById('text').classList.add('show');
     }, 800);
 
+    // 先让文字快速淡出
+    setTimeout(() => {
+      document.getElementById('text').classList.add('move-down');
+    }, 4300);
+
+    // 文字完全消失后，星空图再从黑暗中浮现，注意力自然转移到星星上
     setTimeout(() => {
       document.getElementById('bg').style.opacity = 1;
       document.getElementById('overlay').style.opacity = 1;
-      document.getElementById('text').classList.add('move-down');
-    }, 4300);
+    }, 5200);
 
     // 双击切换图片介绍
     let captionShown = false;
