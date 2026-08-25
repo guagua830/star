@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pillars of Creation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #07070f;
+      overflow: hidden;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      background-image: url('pillars_bg.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(1) saturate(1.05);
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 3s ease;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.05) 40%, transparent 70%);
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 3s ease;
+    }
+
+    .text {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: rgba(210, 210, 225, 0.9);
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      line-height: 2;
+      z-index: 4;
+      opacity: 0;
+      transition: opacity 2s ease;
+      padding: 0 24px;
+    }
+
+    .text span { display: block; }
+
+    .text.show { opacity: 1; }
+
+    .text.move-down { opacity: 0 !important; }
+
+    /* 双击出现的图片介绍 */
+    .caption {
+      position: fixed;
+      left: 0; right: 0;
+      bottom: 6vh;
+      text-align: center;
+      color: rgba(200, 200, 215, 0.7);
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      padding: 0 32px;
+      pointer-events: none;
+    }
+
+    .caption.show { opacity: 1; }
+
+    @media (max-width: 480px) {
+      .text { font-size: 15px; }
+      .caption { font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" id="bg"></div>
+  <div class="overlay" id="overlay"></div>
+  <div class="text" id="text">
+    <span>在杭州的时候你说想要星星，这个当成星星送给你吧</span>
+  </div>
+  <div class="caption" id="caption">创生之柱 · 鹰状星云 M16 · 哈勃空间望远镜拍摄</div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('text').classList.add('show');
+    }, 800);
+
+    setTimeout(() => {
+      document.getElementById('bg').style.opacity = 1;
+      document.getElementById('overlay').style.opacity = 1;
+      document.getElementById('text').classList.add('move-down');
+    }, 2800);
+
+    // 双击切换图片介绍
+    let captionShown = false;
+    document.addEventListener('dblclick', () => {
+      captionShown = !captionShown;
+      document.getElementById('caption').classList.toggle('show', captionShown);
+    });
+  </script>
+</body>
+</html>
